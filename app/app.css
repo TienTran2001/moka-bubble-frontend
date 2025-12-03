@@ -1,15 +1,79 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-telegram-primary: #2aabee;
+  --color-telegram-primary-strong: #229ed9;
+  --color-telegram-bg-page: #f3f7fb;
+  --color-telegram-surface: #ffffff;
+  --color-telegram-border: #d1e2f5;
+  --color-telegram-text-primary: #17212b;
+  --color-telegram-text-secondary: #5f6c80;
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+@layer components {
+  .auth-page {
+    @apply min-h-screen flex items-center justify-center text-telegram-text-primary px-4;
+    background: radial-gradient(
+      circle at top,
+      #40b3ff 0,
+      #e6f3ff 55%,
+      #f3f7fb 100%
+    );
+  }
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+  .auth-shell {
+    @apply w-full max-w-4xl rounded-2xl bg-telegram-surface/90 shadow-[0_18px_45px_rgba(15,76,129,0.18)] backdrop-blur-md overflow-hidden flex flex-col md:flex-row;
+  }
+
+  .auth-shell-left {
+    @apply hidden md:flex md:w-1/2 bg-telegram-primary/90 text-white flex-col justify-between p-8;
+  }
+
+  .auth-shell-left-header {
+    @apply flex items-center gap-3 mb-6;
+  }
+
+  .auth-shell-left-title {
+    @apply flex flex-col;
+  }
+
+  .auth-shell-left-title-main {
+    @apply text-lg font-semibold leading-tight;
+  }
+
+  .auth-shell-left-title-sub {
+    @apply text-xs text-white/80;
+  }
+
+  .auth-shell-left-heading {
+    @apply text-xl font-semibold mb-2;
+  }
+
+  .auth-shell-left-text {
+    @apply text-sm text-white/85 leading-relaxed;
+  }
+
+  .auth-shell-left-footer {
+    @apply mt-6 text-xs text-white/70;
+  }
+
+  .auth-shell-right {
+    @apply w-full md:w-1/2 px-7 py-8 md:px-8 md:py-10 bg-telegram-surface;
+  }
+
+  .auth-shell-right-header {
+    @apply mb-6 flex flex-col gap-2;
+  }
+
+  .auth-shell-right-title {
+    @apply text-2xl font-semibold text-center md:text-left;
+  }
+
+  .auth-shell-right-description {
+    @apply text-sm text-telegram-text-secondary text-center md:text-left;
+  }
+
+  .auth-shell-right-footer {
+    @apply mt-6 text-xs text-telegram-text-secondary text-center md:text-left;
   }
 }
