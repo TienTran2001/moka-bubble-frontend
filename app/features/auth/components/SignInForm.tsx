@@ -23,11 +23,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   const searchParams = useSearchParams();
   const username = searchParams[0].get('username');
 
-  console.log({
-    username: username,
-    searchParams: searchParams,
-  });
-
   const {
     register,
     handleSubmit,

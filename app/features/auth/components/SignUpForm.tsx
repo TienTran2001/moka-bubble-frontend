@@ -10,7 +10,6 @@ import {
   signUpPayloadSchema,
   signUpSchema,
   type SignUpInput,
-  type SignUpPayloadInput,
 } from '~/features/auth/schemas';
 import { useAuthStore } from '~/stores/useAuthStore';
 
@@ -35,7 +34,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     mode: 'onSubmit',
   });
 
-  const onSubmit = async (values: SignUpPayloadInput) => {
+  const onSubmit = async (values: SignUpInput) => {
     const payload = signUpPayloadSchema.parse(values);
     const success = await signUp(payload);
 

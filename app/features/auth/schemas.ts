@@ -1,38 +1,30 @@
 import { z } from 'zod';
 
+// Shared validation fields
+export const usernameField = z
+  .string()
+  .min(3, 'Username must be at least 3 characters')
+  .max(30, 'Username must be at most 30 characters')
+  .regex(
+    /^[a-zA-Z0-9_]+$/,
+    'Username can only contain letters, numbers, and underscores'
+  );
+
+export const passwordField = z
+  .string()
+  .min(6, 'Password must be at least 6 characters')
+  .max(100, 'Password must be at most 100 characters');
+
 export const signInSchema = z.object({
-  username: z
-    .string()
-    .min(3, 'Username must be at least 3 characters')
-    .max(30, 'Username must be at most 30 characters')
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      'Username can only contain letters, numbers, and underscores'
-    ),
-  password: z
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-    .max(100, 'Password must be at most 100 characters'),
+  username: usernameField,
+  password: passwordField,
 });
 
 export const signUpSchema = z
   .object({
-    username: z
-      .string()
-      .min(3, 'Username must be at least 3 characters')
-      .max(30, 'Username must be at most 30 characters')
-      .regex(
-        /^[a-zA-Z0-9_]+$/,
-        'Username can only contain letters, numbers, and underscores'
-      ),
-    password: z
-      .string()
-      .min(6, 'Password must be at least 6 characters')
-      .max(100, 'Password must be at most 100 characters'),
-    confirmPassword: z
-      .string()
-      .min(6, 'Password must be at least 6 characters')
-      .max(100, 'Password must be at most 100 characters'),
+    username: usernameField,
+    password: passwordField,
+    confirmPassword: passwordField,
     firstName: z
       .string()
       .min(1, 'First name is required')
@@ -49,15 +41,17 @@ export const signUpSchema = z
       .email('Invalid email format')
       .trim(),
     phone: z
-      .string()
-      .regex(/^[0-9+\-\s()]+$/, 'Invalid phone number format')
-      .optional()
-      .or(z.literal('')),
+      .union([
+        z.string().regex(/^[0-9+\-\s()]+$/, 'Invalid phone number format'),
+        z.literal(''),
+      ])
+      .optional(),
     bio: z
-      .string()
-      .max(500, 'Bio must be at most 500 characters')
-      .optional()
-      .or(z.literal('')),
+      .union([
+        z.string().max(500, 'Bio must be at most 500 characters'),
+        z.literal(''),
+      ])
+      .optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
