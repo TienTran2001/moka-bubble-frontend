@@ -82,7 +82,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const accessToken = await authService.refreshToken();
 
       get().setAccessToken(accessToken);
-      if (!user) fetchMe();
+      if (!user) await fetchMe();
     } catch (error) {
       console.error(error);
       get().clearStore();
