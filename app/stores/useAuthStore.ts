@@ -1,6 +1,6 @@
 import type { AxiosError } from 'axios';
 import { create } from 'zustand';
-import type { SignInSchema } from '~/features/auth/schemas';
+import type { SignInInput, SignUpPayloadInput } from '~/features/auth/schemas';
 import { authService } from '~/services/authService';
 import type { IUser } from '~/types/user';
 
@@ -9,8 +9,8 @@ interface AuthState {
   user: IUser | null;
   loading: boolean;
   errorServer: string | null;
-
-  signIn: (signInInput: SignInSchema) => Promise<boolean>;
+  signUp: (signUpPayload: SignUpPayloadInput) => Promise<boolean>;
+  signIn: (signInInput: SignInInput) => Promise<boolean>;
   fetchMe: () => Promise<void>;
   clearStore: () => void;
   signOut: () => Promise<void>;
@@ -28,7 +28,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ accessToken });
   },
 
-  signIn: async (signInInput: SignInSchema) => {
+  signUp: async (signUpInput: SignUpPayloadInput) => {
+    try {
+      set({ loading: true, errorServer: null });
+      await authService.signUp(signUpInput);
+      return true;
+    } catch (error) {
+      const errorMessage =
+        (error as AxiosError<{ message: string }>).response?.data?.message ??
+        null;
+      set({ errorServer: errorMessage });
+      return false;
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  signIn: async (signInInput: SignInInput) => {
     try {
       set({ loading: true, errorServer: null });
 

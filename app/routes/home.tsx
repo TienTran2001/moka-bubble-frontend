@@ -7,8 +7,8 @@ import type { Route } from './+types/home';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'New React Router App' },
-    { name: 'description', content: 'Welcome to React Router!' },
+    { title: 'Moka Moka' },
+    { name: 'description', content: 'Welcome to Moka Bubble' },
   ];
 }
 
@@ -20,10 +20,10 @@ export default function Home() {
       await axiosInstance.get('/users/test', {
         withCredentials: true,
       });
-      toast.success('Oke nhé');
+      toast.success('OK');
     } catch (error) {
       console.error(error);
-      toast.error('Lỗi nhé');
+      toast.error('Error');
     }
   };
 

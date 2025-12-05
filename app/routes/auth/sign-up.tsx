@@ -1,11 +1,10 @@
 import { AuthLayout } from '~/features/auth/components/AuthLayout';
+import { SignUpForm } from '~/features/auth/components/SignUpForm';
 
 const SignUp = () => {
   return (
-    <AuthLayout title="Sign up page">
-      <div className="text-center text-sm text-telegram-text-secondary">
-        Sign up page
-      </div>
+    <AuthLayout title="Sign up for Moka Bubble">
+      <SignUpForm />
     </AuthLayout>
   );
 };
