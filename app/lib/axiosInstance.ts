@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
 
     if (
       originalRequest.url.includes('/auth/sign-in') ||
-      originalRequest.url.includes('/auth/sign-in') ||
+      originalRequest.url.includes('/auth/sign-up') ||
       originalRequest.url.includes('/auth/refresh')
     ) {
       return Promise.reject(error);
@@ -37,7 +37,6 @@ axiosInstance.interceptors.response.use(
     originalRequest._retryCount = originalRequest._retryCount || 0;
     if (error.response?.status === 403 && originalRequest._retryCount < 3) {
       originalRequest._retryCount += 1;
-      console.log('refresh: ', originalRequest);
       try {
         const newAccessToken = await authService.refreshToken();
         useAuthStore.getState().setAccessToken(newAccessToken);
