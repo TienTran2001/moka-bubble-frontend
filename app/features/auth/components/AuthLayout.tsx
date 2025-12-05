@@ -46,7 +46,7 @@ export const AuthLayout = ({
   return (
     <main className="auth-page">
       <div className="auth-shell">
-        {/* Left panel - giống Telegram promo */}
+        {/* Left panel */}
         <div className="auth-shell-left">
           <div>
             <div className="auth-shell-left-header">
@@ -69,13 +69,13 @@ export const AuthLayout = ({
               Welcome to your Moka Bubble
             </h2>
             <p className="auth-shell-left-text">
-              Gửi tin nhắn nhanh chóng, đồng bộ trên mọi thiết bị,
+              Send messages quickly, synced across all devices,
             </p>
           </div>
 
           <div className="auth-shell-left-footer">
-            Đăng nhập để tiếp tục các cuộc hội thoại, nhóm và kênh yêu thích của
-            bạn.
+            Sign in to continue your conversations, groups, and favorite
+            channels.
           </div>
         </div>
 
@@ -91,8 +91,8 @@ export const AuthLayout = ({
           {children}
 
           <p className="auth-shell-right-footer">
-            Bằng việc tiếp tục, bạn đồng ý với Điều khoản dịch vụ &amp; Chính
-            sách bảo mật.
+            By continuing, you agree to the Terms of Service &amp; Privacy
+            Policy.
           </p>
         </div>
       </div>

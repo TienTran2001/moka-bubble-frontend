@@ -1,4 +1,7 @@
-import type { SignInSchema } from '~/features/auth/schemas';
+import {
+  type SignInInput,
+  type SignUpPayloadInput,
+} from '~/features/auth/schemas';
 import { axiosInstance } from '~/lib/axiosInstance';
 import type { IUser } from '~/types/user';
 
@@ -15,7 +18,11 @@ interface FetchMeResponse {
 }
 
 export const authService = {
-  signIn: async (signInInput: SignInSchema): Promise<SignInResponse> => {
+  signUp: async (signUpInput: SignUpPayloadInput): Promise<void> => {
+    await axiosInstance.post('/auth/sign-up', signUpInput);
+  },
+
+  signIn: async (signInInput: SignInInput): Promise<SignInResponse> => {
     const response = await axiosInstance.post('/auth/sign-in', signInInput);
 
     return response.data;

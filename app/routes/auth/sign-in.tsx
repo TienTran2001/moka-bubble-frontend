@@ -5,7 +5,7 @@ const SignIn = () => {
   return (
     <AuthLayout
       title="Login to Moka Bubble"
-      description="Đăng nhập để trải nghiệm Moka Bubble"
+      description="Sign in to experience Moka Bubble"
     >
       <SignInForm />
     </AuthLayout>
