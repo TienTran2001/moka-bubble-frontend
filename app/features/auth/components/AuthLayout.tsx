@@ -1,4 +1,7 @@
 import type { ReactNode } from 'react';
+import { useEffect } from 'react';
+import { Navigate } from 'react-router';
+import { useAuthStore } from '~/stores/useAuthStore';
 
 type AuthLayoutProps = {
   title: string;
@@ -11,6 +14,35 @@ export const AuthLayout = ({
   description,
   children,
 }: AuthLayoutProps) => {
+  const { accessToken, loading, refresh } = useAuthStore();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkAuth = async () => {
+      let currentAccessToken = useAuthStore.getState().accessToken;
+
+      if (!currentAccessToken) {
+        try {
+          await refresh();
+          currentAccessToken = useAuthStore.getState().accessToken;
+        } catch (error) {
+          console.error('Refresh token failed:', error);
+        }
+      }
+    };
+
+    checkAuth();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [refresh]);
+
+  if (accessToken) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <main className="auth-page">
       <div className="auth-shell">
